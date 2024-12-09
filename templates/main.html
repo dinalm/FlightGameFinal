@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Skytrack - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="/static/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Operation Skytrack!</h1>
+        <p>Navigate the skies, manage resources wisely, and complete your mission with precision.</p>
+        <button id="exit-btn" class="exit-button" title="Exit" onclick='confirmExit()'>
+            <i class="fas fa-power-off"></i>
+        </button>
+    </header>
+    <main>
+        <div id="map-area">
+            <div id="info-panel-wrapper">
+                <div id="leaderboard-panel">
+                    <h2>Leaderboard</h2>
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Player</th>
+                                <th>Moves</th>
+                                <th>Fuel</th>
+                                <th>Distance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <tr><td colspan="5" class="no-entries">No leaderboard entries available.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="info-panel">
+                    <h2>Airport Info</h2>
+                    <p><strong>Selected Airport:</strong> <span id="selected-airport">None</span></p>
+                    <p><strong>Weather:</strong> <span id="weather-info">N/A</span></p>
+                    <hr>
+                    <p><strong>Distance:</strong> <span id="travel-distance">N/A</span></p>
+                    <p><strong>Fuel Required:</strong> <span id="fuel-required">N/A</span></p>
+                    <hr>
+                    <div id="travel-controls">
+                        <button id="confirm-travel-btn">Travel</button>
+                    </div>
+                </div>
+            </div>
+            <div id="map"></div>
+            <div id="actions-panel">
+                <button id="player-status-btn">Player Status</button>
+                    <div id="player-status-container" class="status-box">
+                    </div>
+                <button id="refuel-btn">Refuel</button>
+                    <div id="refuel-container" class="refuel-box" style="display: none;">
+                        <p>You can refuel up to 1000 units per session.</p>
+                        <input id="refuel-input" type="number" placeholder="Enter fuel amount" />
+                        <button id="refuel-confirm-btn">Confirm</button>
+                    </div>
+                <button id="clues-btn">Clues</button>
+                <div id="clues-container" class="info-box info-box-hidden"></div>
+                <button id="npc-info-btn">NPC Information</button>
+                <div id="npc-container" class="info-box info-box-hidden"></div>
+                <button id="travel-log-btn">Travel Log</button>
+                    <div id="travel-log-container" class="hidden">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Distance (km)</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="travel-log-body">
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </main>
+    <div id="end-game-message">
+        <div id="confetti-container"></div>
+    </div>
+    <footer>
+        <p>© 2024 Operation Skytrack. All rights reserved.</p>
+    </footer>
+<script>
+    function confirmExit() {
+        const userConfirmed = confirm("Do you want to quit the game?");
+        if (userConfirmed) {
+            window.location.href = 'http://127.0.0.1:5000/';
+        }
+    }
+</script>
+</body>
+</html>
