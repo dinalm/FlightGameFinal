@@ -1,7 +1,5 @@
 from flask import Flask, jsonify, request, render_template, redirect
 from db_connection import Database
-from game_logic import Game
-from player_logic import Player
 import requests
 
 app = Flask(__name__)
@@ -9,9 +7,6 @@ app = Flask(__name__)
 db = Database(host="localhost", user="root", password="256481@dinal", database="flight_game")
 db.connect()
 cursor = db.cursor(dictionary=True)
-
-game = Game(db)
-player = Player(db)
 
 WEATHER_API_KEY = "3d10913cf535b0fcbe220e38a3dcdca3"
 
@@ -105,12 +100,6 @@ def get_player_status(player_id):
         return jsonify(player_status), 200
     except Exception as e:
         return jsonify({"error": str(e), "debug": {"player_id": player_id}}), 500
-
-
-@app.route('/game/start/<int:player_id>', methods=['POST'])
-def start_game(player_id):
-    success = game.start_new_game(player_id)
-    return jsonify(message="Game started successfully.") if success else jsonify(error="Failed to start the game"), 500
 
 
 @app.route('/travel', methods=['POST'])
